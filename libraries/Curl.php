@@ -319,13 +319,13 @@ class Curl_Core
 			if (($error_number = curl_errno($this->connection)) > 0)
 			{
 				// Merge the ignored errors values
-				$this->config['ignored_errors'] += $ignored_errors;
+				$this->config['ignored_errors'] += $ignore_errors;
 
 				// Assign the error information to this model
 				$this->error = array($error_number => curl_error($this->connection));
 
 				// If the error number is not in the ignored errors array, throw an exception
-				if ( ! in_array($error_number, $this->config['ignore_errors']))
+				if ( ! in_array($error_number, $this->config['ignored_errors']))
 					throw new Kohana_User_Exception(__CLASS__.'.'.__METHOD__.'()', 'Curl error : ' . $error_number . ' ' . $this->error[$error_number]);
 			}
 			else
